@@ -3,6 +3,8 @@ from typing import Optional, Callable, Any
 from functools import partial
 import json
 
+__all__ = ["KuroFileHandler"]
+
 
 class FileRequiredError(BaseException):
     """Throws an exception when a file path isn't provided."""
@@ -12,7 +14,9 @@ class FileRequiredError(BaseException):
 class KuroFileHandler:
     CallableInferExtension = Callable[[str, TextIOWrapper[_WrappedBuffer]], Any]  # noqa
 
-    def __init__(self, encoding: Optional[str] = "utf-8", infer_filetype: Optional[bool] = True,
+    def __init__(self,
+                 encoding: Optional[str] = "utf-8",
+                 infer_filetype: Optional[bool] = True,
                  inferer_callback: Optional[CallableInferExtension] = None):
         self._encoding = encoding
         self._infer_filetype = infer_filetype
@@ -33,7 +37,9 @@ class KuroFileHandler:
 
         return override_encoding, override_inferer_callback
 
-    def read(self, path: str, *,
+    def read(self,
+             path: str,
+             *,
              encoding: Optional[str],
              infer_filetype: Optional[bool],
              inferer_callback: Optional[CallableInferExtension]):
@@ -56,7 +62,9 @@ class KuroFileHandler:
         except FileNotFoundError as e:
             raise e
 
-    def write(self, path: str, *,
+    def write(self,
+              path: str,
+              *,
               truncate: Optional[bool],
               encoding: Optional[str],
               inferer_callback: Optional[CallableInferExtension]) -> None:
